@@ -18,7 +18,7 @@ class MovieController extends Controller
      * @OA\get(
      * path="/api/movies",
      * operationId="movies",
-     * tags={"Movie"},
+     * tags={"API for Site Status"},
      * summary="Get movies",
      * description="Get movies here",
      *      @OA\Response(
@@ -80,9 +80,9 @@ class MovieController extends Controller
      */
     /**
      * @OA\post(
-     * path="/api/movies",
+     * path="/movies",
      * operationId="moviesstore",
-     * tags={"Movie"},
+     * tags={"API for Site Status"},
      * summary="User movies store",
      * description="User movies store here",
      *     @OA\RequestBody(
@@ -153,9 +153,9 @@ class MovieController extends Controller
      */
     /**
      * @OA\put(
-     * path="/api/movies/{id}",
+     * path="/movies/{id}",
      * operationId="moviesupdate",
-     * tags={"Movie"},
+     * tags={"API for Site Status"},
      * summary="Update Movie",
      * description="Update Movie here",
      *     @OA\RequestBody(

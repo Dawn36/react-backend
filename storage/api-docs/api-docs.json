@@ -6,11 +6,11 @@
     },
     "servers": [
         {
-            "url": "http://127.0.0.1:8000/"
+            "url": "http://127.0.0.1:8000/api/"
         }
     ],
     "paths": {
-        "/api/register": {
+        "/register": {
             "post": {
                 "tags": [
                     "Register"
@@ -84,7 +84,7 @@
                 }
             }
         },
-        "/api/login": {
+        "/login": {
             "post": {
                 "tags": [
                     "Login"
@@ -150,7 +150,7 @@
                 }
             }
         },
-        "/api/logout": {
+        "/logout": {
             "post": {
                 "tags": [
                     "Login"
@@ -176,7 +176,7 @@
         "/api/movies": {
             "get": {
                 "tags": [
-                    "Movie"
+                    "API for Site Status"
                 ],
                 "summary": "Get movies",
                 "description": "Get movies here",
@@ -197,10 +197,12 @@
                         "description": "Resource Not Found"
                     }
                 }
-            },
+            }
+        },
+        "/movies": {
             "post": {
                 "tags": [
-                    "Movie"
+                    "API for Site Status"
                 ],
                 "summary": "User movies store",
                 "description": "User movies store here",
@@ -247,10 +249,10 @@
                 }
             }
         },
-        "/api/movies/{id}": {
+        "/movies/{id}": {
             "put": {
                 "tags": [
-                    "Movie"
+                    "API for Site Status"
                 ],
                 "summary": "Update Movie",
                 "description": "Update Movie here",
@@ -296,6 +298,83 @@
                     }
                 }
             }
+        },
+        "/siteMap": {
+            "get": {
+                "tags": [
+                    "site"
+                ],
+                "summary": "Get siteMap",
+                "description": "Get siteMap here",
+                "operationId": "siteMap",
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/siteMapDetails": {
+            "post": {
+                "tags": [
+                    "site"
+                ],
+                "summary": "Site Map Details",
+                "description": "Site Map Details",
+                "operationId": "siteMapDetails",
+                "requestBody": {
+                    "description": "Site Map Details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "properties": {
+                                        "site_id": {
+                                            "type": "integer",
+                                            "example": "10"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "example": {
+                                "site_id": "1"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Site",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Site"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -306,20 +385,6 @@
                 "in": "header",
                 "bearerFormat": "JWT",
                 "scheme": "bearer"
-            },
-            "passport": {
-                "type": "oauth2",
-                "description": "Laravel passport oauth2 security.",
-                "in": "header",
-                "scheme": "https",
-                "flows": {
-                    "password": {
-                        "authorizationUrl": "http://localhost/oauth/authorize",
-                        "tokenUrl": "http://localhost/oauth/token",
-                        "refreshUrl": "http://localhost/token/refresh",
-                        "scopes": []
-                    }
-                }
             }
         }
     }

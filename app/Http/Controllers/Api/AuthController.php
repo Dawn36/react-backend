@@ -15,7 +15,7 @@ class AuthController extends Controller
 {
     /**
      * @OA\post(
-     * path="/api/register",
+     * path="/register",
      * operationId="Register",
      * tags={"Register"},
      * summary="User Register",
@@ -77,7 +77,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     * path="/api/login",
+     * path="/login",
      * operationId="authLogin",
      * tags={"Login"},
      * summary="User Login",
@@ -136,7 +136,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     * path="/api/logout",
+     * path="/logout",
      * operationId="logout",
      * tags={"Login"},
      * security={ {"bearerAuth": {}} },
