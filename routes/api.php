@@ -18,17 +18,24 @@ use App\Http\Controllers\MovieController;
 |
 */
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::get('/siteMap', [SiteController::class, 'siteMap']);
+// Route::post('/register', [AuthController::class, 'register']);
+
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::resource('movies', MovieController::class);
 
 Route::middleware('jwt.verify')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
+
+Route::get('/siteMap', [SiteController::class, 'siteMap']);
+Route::get('/siteStatus', [SiteController::class, 'siteStatus']);
+Route::get('/siteData', [SiteController::class, 'siteData']);
+Route::get('/activeEvent', [SiteController::class, 'activeEvent']);
 Route::post('/siteMapDetails', [SiteController::class, 'siteMapDetails']);
+
+
+
 Route::prefix('api')->group(function () {
     // Route::post('/register', 'Api\AuthController@register');
 });

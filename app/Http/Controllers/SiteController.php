@@ -92,4 +92,116 @@ class SiteController extends Controller
         ]);
         // return view('movie', ['users' => $users]);
     }
+    /**
+     * @OA\get(
+     * path="/siteStatus",
+     * operationId="siteStatus",
+     * tags={"site"},
+     * summary="Get siteStatus",
+     * description="Get siteStatus here",
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function siteStatus()
+    {
+        $site = new Site;
+        $siteStatus = $site->getStatus();
+        $getStatusOnlineOffline = $site->getStatusOnlineOffline();
+        array_push($siteStatus, $getStatusOnlineOffline[0]);
+
+        return response()->json([
+            'site_status' => $siteStatus
+
+        ]);
+        // return view('movie', ['users' => $users]);
+    }
+    /**
+     * @OA\get(
+     * path="/siteData",
+     * operationId="siteData",
+     * tags={"site"},
+     * summary="Get siteData",
+     * description="Get siteData here",
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function siteData()
+    {
+        $site = new Site;
+        $siteStatus = $site->getsiteData();
+
+        return response()->json([
+            'site_data' => $siteStatus
+
+        ]);
+        // return view('movie', ['users' => $users]);
+    }
+    /**
+     * @OA\get(
+     * path="/activeEvent",
+     * operationId="activeEvent",
+     * tags={"site"},
+     * summary="Get activeEvent",
+     * description="Get activeEvent here",
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function activeEvent()
+    {
+        $site = new Site();
+        $data = array();
+        $siteStatus = $site->getStatus();
+        $getStatusOnlineOffline = $site->getStatusOnlineOffline();
+        $totalSite = $site->getTotalSite();
+        $getActiveEvent = $site->getActiveEvent();
+
+
+        for ($i = 0; $i < count($siteStatus); $i++) {
+            $data[$siteStatus[$i]->alarm_type] = $siteStatus[$i]->count;
+        }
+        $data['online_site'] = $getStatusOnlineOffline[0]->online_site;
+        $data['offline_site'] = $getStatusOnlineOffline[0]->offline_site;
+        $data['site_count'] = $totalSite[0]->total_site;
+        $data2 = array();
+        for ($i = 0; $i < count($getActiveEvent); $i++) {
+            $activeEvent = array();
+            $activeEvent['site_id'] = $getActiveEvent[$i]->site_id;
+            $activeEvent['site_name'] = $getActiveEvent[$i]->site_name;
+            $activeEvent['online_offline_status'] = $getActiveEvent[$i]->online_offline_status == true ? 'online' : 'offline';
+            $activeEvent['rname'] = $getActiveEvent[$i]->rname;
+            $activeEvent['start_time'] = $getActiveEvent[$i]->set_time;
+            $activeEvent['end_time'] = $getActiveEvent[$i]->reset_time;
+            $activeEvent['time_elapsed'] = 0;
+
+            array_push($data2, $activeEvent);
+        }
+        $data['table_data'] =  $data2;
+
+
+
+
+
+        return response()->json([
+            'active_event' => $data
+
+        ]);
+    }
 }

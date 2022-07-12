@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "http://127.0.0.1:8000/api/"
+            "url": "http://127.0.0.1:8000/api"
         }
     ],
     "paths": {
@@ -173,132 +173,6 @@
                 ]
             }
         },
-        "/api/movies": {
-            "get": {
-                "tags": [
-                    "API for Site Status"
-                ],
-                "summary": "Get movies",
-                "description": "Get movies here",
-                "operationId": "movies",
-                "responses": {
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/movies": {
-            "post": {
-                "tags": [
-                    "API for Site Status"
-                ],
-                "summary": "User movies store",
-                "description": "User movies store here",
-                "operationId": "moviesstore",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "array",
-                                "items": {
-                                    "properties": {
-                                        "name": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            },
-                            "example": {
-                                "title": "asdsa",
-                                "genre_id": "1",
-                                "number_in_stock": "4",
-                                "daily_rental_rate": "2",
-                                "liked": "true"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Register Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/movies/{id}": {
-            "put": {
-                "tags": [
-                    "API for Site Status"
-                ],
-                "summary": "Update Movie",
-                "description": "Update Movie here",
-                "operationId": "moviesupdate",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "array",
-                                "items": {
-                                    "properties": {
-                                        "name": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            },
-                            "example": {
-                                "title": "asdsa",
-                                "genre_id": "1",
-                                "number_in_stock": "5",
-                                "daily_rental_rate": "5",
-                                "liked": "true"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Register Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
         "/siteMap": {
             "get": {
                 "tags": [
@@ -372,6 +246,84 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/siteStatus": {
+            "get": {
+                "tags": [
+                    "site"
+                ],
+                "summary": "Get siteStatus",
+                "description": "Get siteStatus here",
+                "operationId": "siteStatus",
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/siteData": {
+            "get": {
+                "tags": [
+                    "site"
+                ],
+                "summary": "Get siteData",
+                "description": "Get siteData here",
+                "operationId": "siteData",
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/activeEvent": {
+            "get": {
+                "tags": [
+                    "site"
+                ],
+                "summary": "Get activeEvent",
+                "description": "Get activeEvent here",
+                "operationId": "activeEvent",
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
                     }
                 }
             }
