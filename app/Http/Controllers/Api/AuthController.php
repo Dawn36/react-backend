@@ -88,8 +88,8 @@ class AuthController extends Controller
      *            mediaType="multipart/form-data",
      *            @OA\Schema(
      *               type="object",
-     *               required={"email", "password"},
-     *               @OA\Property(property="email", type="email"),
+     *               required={"username", "password"},
+     *               @OA\Property(property="username", type="string"),
      *               @OA\Property(property="password", type="password")
      *            ),
      *        ),
@@ -119,7 +119,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = $request->validate([
-            'email' => 'email|required',
+            'username' => 'required',
             'password' => 'required'
         ]);
 
@@ -127,6 +127,7 @@ class AuthController extends Controller
         if (!$token = auth()->attempt($validator)) {
             return response()->json(['error' => 'Unauthorised'], 401);
         } else {
+
             $success['token'] = auth()->user()->createToken('authToken')->accessToken;
             $success['user'] = auth()->user();
             // return response()->json(['success' => $success])->setStatusCode(200);

@@ -24,10 +24,11 @@ class Site extends Model
               FROM private.alarm_instance 
               INNER JOIN private.site ON private.alarm_instance.site_id = private.site.site_id 
               INNER JOIN private.alarm_type ON private.alarm_instance.device_alarm_type_id = private.alarm_type.id
-              INNER JOIN  private.site_last_seen on private.site_last_seen.site_id=private.site.site_id
-              where private.site_last_seen.status='true'
+             
          group by (private.alarm_type.alarm_type)
         "));
+        // INNER JOIN  private.site_last_seen on private.site_last_seen.site_id=private.site.site_id
+        //where private.site_last_seen.status='true'
     }
     public function getStatusOnlineOffline()
     {
@@ -54,5 +55,9 @@ class Site extends Model
         return DB::select(DB::raw("select s.site_id,s.site_name,sts.status As online_offline_status,r.rname,al.set_time,al.reset_time
         from private.site s inner join private.region r on s.rid=r.rid inner join private.site_last_seen sts
         on sts.site_id=s.site_id inner join private.alarm_instance al on al.site_id=s.site_id"));
+    }
+    public function siteLiveWidget()
+    {
+        return DB::select(DB::raw("select *,r.rname from private.site s inner join private.region r on s.rid=r.rid"));
     }
 }

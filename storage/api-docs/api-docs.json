@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "http://127.0.0.1:8000/api"
+            "url": "http://127.0.0.1:80/api"
         }
     ],
     "paths": {
@@ -97,12 +97,12 @@
                         "multipart/form-data": {
                             "schema": {
                                 "required": [
-                                    "email",
+                                    "username",
                                     "password"
                                 ],
                                 "properties": {
-                                    "email": {
-                                        "type": "email"
+                                    "username": {
+                                        "type": "string"
                                     },
                                     "password": {
                                         "type": "password"
@@ -310,6 +310,32 @@
                 "summary": "Get activeEvent",
                 "description": "Get activeEvent here",
                 "operationId": "activeEvent",
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/siteLiveWidget": {
+            "get": {
+                "tags": [
+                    "site"
+                ],
+                "summary": "Get siteLiveWidget",
+                "description": "Get siteLiveWidget here",
+                "operationId": "siteLiveWidget",
                 "responses": {
                     "422": {
                         "description": "Unprocessable Entity",

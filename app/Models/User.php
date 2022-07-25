@@ -11,6 +11,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
+    protected $table = 'user';
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -19,10 +20,9 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
-        'user_type',
+        'utype',
     ];
 
     /**
@@ -60,10 +60,9 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [
-            'id'    => $this->id,
-            'name'  => $this->name,
-            'email' => $this->email,
-            'user_type' => $this->user_type,
+            'uid'    => $this->uid,
+            'username'  => $this->username,
+            'utype' => $this->utype,
         ];
     }
 }

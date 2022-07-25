@@ -33,7 +33,7 @@ Route::get('/siteStatus', [SiteController::class, 'siteStatus']);
 Route::get('/siteData', [SiteController::class, 'siteData']);
 Route::get('/activeEvent', [SiteController::class, 'activeEvent']);
 Route::post('/siteMapDetails', [SiteController::class, 'siteMapDetails']);
-
+Route::get('/siteLiveWidget ', [SiteController::class, 'siteLiveWidget']);
 
 
 Route::prefix('api')->group(function () {

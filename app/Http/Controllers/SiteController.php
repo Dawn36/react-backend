@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class SiteController extends Controller
 {
@@ -180,6 +181,7 @@ class SiteController extends Controller
         $data['online_site'] = $getStatusOnlineOffline[0]->online_site;
         $data['offline_site'] = $getStatusOnlineOffline[0]->offline_site;
         $data['site_count'] = $totalSite[0]->total_site;
+
         $data2 = array();
         for ($i = 0; $i < count($getActiveEvent); $i++) {
             $activeEvent = array();
@@ -187,9 +189,19 @@ class SiteController extends Controller
             $activeEvent['site_name'] = $getActiveEvent[$i]->site_name;
             $activeEvent['online_offline_status'] = $getActiveEvent[$i]->online_offline_status == true ? 'online' : 'offline';
             $activeEvent['rname'] = $getActiveEvent[$i]->rname;
-            $activeEvent['start_time'] = $getActiveEvent[$i]->set_time;
-            $activeEvent['end_time'] = $getActiveEvent[$i]->reset_time;
+            $activeEvent['start_time'] = date("Y-m-d h:i:s", substr($getActiveEvent[$i]->set_time, 0, 10));
+            $activeEvent['end_time'] = 0;
             $activeEvent['time_elapsed'] = 0;
+
+            if ($getActiveEvent[$i]->reset_time != '') {
+                $activeEvent['end_time'] = date("Y-m-d h:i:s", substr($getActiveEvent[$i]->reset_time, 0, 10));
+                $a = date("Y-m-d h:i:s", substr($getActiveEvent[$i]->set_time, 0, 10));
+                $b = date("Y-m-d h:i:s", substr($getActiveEvent[$i]->reset_time, 0, 10));
+                $d1 = new DateTime($a);
+                $d2 = new DateTime($b);
+                $interval = $d1->diff($d2);
+                $activeEvent['time_elapsed'] = $interval->format('%y years %m months %d days %h hours %i minutes %s seconds');
+            }
 
             array_push($data2, $activeEvent);
         }
@@ -203,5 +215,33 @@ class SiteController extends Controller
             'active_event' => $data
 
         ]);
+    }
+    /**
+     * @OA\get(
+     * path="/siteLiveWidget",
+     * operationId="siteLiveWidget",
+     * tags={"site"},
+     * summary="Get siteLiveWidget",
+     * description="Get siteLiveWidget here",
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function siteLiveWidget()
+    {
+        $dataArray = array();
+        $site = new Site;
+        $siteLiveWidget = $site->siteLiveWidget();
+
+        return response()->json([
+            'live_widget' => $siteLiveWidget
+
+        ]);
+        // return view('movie', ['users' => $users]);
     }
 }
